@@ -39,7 +39,7 @@ jobs:
         with:
           node-version: 20
           registry-url: 'https://registry.npmjs.org'
-          scope: '@breeztech'
+          scope: '@assetify'
 
       - name: Make sure we publish the version as specified
         working-directory: libs/sdk-react-native
