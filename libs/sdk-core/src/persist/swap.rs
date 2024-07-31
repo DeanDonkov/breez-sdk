@@ -258,7 +258,8 @@ impl SqliteStorage {
           confirmed_tx_ids as {prefix}confirmed_tx_ids,
           last_redeem_error as {prefix}last_redeem_error,
           swaps_fees.channel_opening_fees as {prefix}channel_opening_fees,
-          swaps_info.confirmed_at as {prefix}confirmed_at          
+          swaps_info.confirmed_at as {prefix}confirmed_at,
+          swaps_info.confirmed_at_timestamp as {prefix}confirmed_at_timestamp         
         ");
 
         format!(
