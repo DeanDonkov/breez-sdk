@@ -784,6 +784,7 @@ mod tests {
             last_redeem_error: None,
             channel_opening_fees: Some(get_test_ofp_48h(1, 1).into()),
             confirmed_at: Some(555),
+            confirmed_at_timestamp: Some(555),
         };
         persister.insert_swap(tested_swap_info).unwrap();
     }

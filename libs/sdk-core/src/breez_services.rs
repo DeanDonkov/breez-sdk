@@ -2826,6 +2826,7 @@ pub(crate) mod tests {
                 promise: "promise".to_string(),
             }),
             confirmed_at: Some(555),
+            confirmed_at_timestamp : Some(555),
         };
         let payment_hash_rev_swap: Vec<u8> = vec![8, 7, 6, 5, 4, 3, 2, 1];
         let preimage_rev_swap: Vec<u8> = vec![6, 6, 6, 6];

@@ -466,6 +466,7 @@ mod tests {
             last_redeem_error: None,
             channel_opening_fees: Some(get_test_ofp_48h(1, 1).into()),
             confirmed_at: None,
+            confirmed_at_timestamp: None,
         };
         storage.insert_swap(tested_swap_info.clone())?;
         let item_value = storage.get_swap_info_by_address("1".to_string())?.unwrap();
@@ -493,6 +494,7 @@ mod tests {
             confirmed_sats: 0,
             confirmed_tx_ids: vec![],
             confirmed_at: None,
+            confirmed_at_timestamp: None,
             total_incoming_txs: 0,
         };
 
@@ -512,6 +514,7 @@ mod tests {
             confirmed_sats: 20,
             confirmed_tx_ids: vec![String::from("333"), String::from("444")],
             confirmed_at: Some(1000),
+            confirmed_at_timestamp: Some(1000),
             total_incoming_txs: 1,
         };
         let swap_after_chain_update = storage.update_swap_chain_info(
@@ -528,6 +531,7 @@ mod tests {
             confirmed_sats: 20,
             confirmed_tx_ids: vec![String::from("333"), String::from("444")],
             confirmed_at: Some(1000),
+            confirmed_at_timestamp: Some(1000),
             total_incoming_txs: 1,
         };
         storage.update_swap_chain_info(
@@ -586,6 +590,7 @@ mod tests {
             confirmed_sats: 20,
             confirmed_tx_ids: vec![String::from("333"), String::from("444")],
             confirmed_at: Some(1000),
+            confirmed_at_timestamp: Some(1000),
             total_incoming_txs: 2,
         };
         storage.update_swap_chain_info(

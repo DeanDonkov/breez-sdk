@@ -566,6 +566,7 @@ fn test_ln_transactions() -> PersistResult<(), Box<dyn std::error::Error>> {
             promise: "promise".to_string(),
         }),
         confirmed_at: Some(555),
+        confirmed_at_timestamp: Some(555),
     };
     let rev_swap_preimage = vec![4, 4, 4, 4];
     let full_ref_swap_info = FullReverseSwapInfo {

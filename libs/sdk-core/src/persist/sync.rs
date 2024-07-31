@@ -475,6 +475,7 @@ mod tests {
             last_redeem_error: None,
             channel_opening_fees: Some(get_test_ofp_48h(random(), random()).into()),
             confirmed_at: None,
+            confirmed_at_timestamp: None,
         }
     }
 }
