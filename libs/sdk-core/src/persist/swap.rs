@@ -68,8 +68,9 @@ impl SqliteStorage {
           confirmed_sats,
           confirmed_tx_ids,
           confirmed_at,
+          confirmed_at_timestamp,
           total_incoming_txs
-        ) VALUES (:bitcoin_address, :status, :bolt11, :paid_msat, :unconfirmed_sats, :unconfirmed_tx_ids, :confirmed_sats, :confirmed_tx_ids, :confirmed_at, :total_incoming_txs)",
+        ) VALUES (:bitcoin_address, :status, :bolt11, :paid_msat, :unconfirmed_sats, :unconfirmed_tx_ids, :confirmed_sats, :confirmed_tx_ids, :confirmed_at, :confirmed_at_timestamp, :total_incoming_txs)",
             named_params! {
                ":bitcoin_address": swap_info.bitcoin_address,
                ":status": swap_info.status as i32,
@@ -80,6 +81,7 @@ impl SqliteStorage {
                ":confirmed_sats": swap_info.confirmed_sats,
                ":confirmed_tx_ids": StringArray(swap_info.confirmed_tx_ids),
                ":confirmed_at": swap_info.confirmed_at,
+               ":confirmed_at_timestamp": swap_info.confirmed_at_timestamp,
                ":total_incoming_txs": swap_info.total_incoming_txs,
             },
         )?;
@@ -215,7 +217,7 @@ impl SqliteStorage {
         status: SwapStatus,
     ) -> PersistResult<SwapInfo> {
         self.get_connection()?.execute(
-            "UPDATE swaps_info SET total_incoming_txs=:total_incoming_txs, unconfirmed_sats=:unconfirmed_sats, unconfirmed_tx_ids=:unconfirmed_tx_ids, confirmed_sats=:confirmed_sats, confirmed_tx_ids=:confirmed_tx_ids, status=:status, confirmed_at=:confirmed_at where bitcoin_address=:bitcoin_address",
+            "UPDATE swaps_info SET total_incoming_txs=:total_incoming_txs, unconfirmed_sats=:unconfirmed_sats, unconfirmed_tx_ids=:unconfirmed_tx_ids, confirmed_sats=:confirmed_sats, confirmed_tx_ids=:confirmed_tx_ids, status=:status, confirmed_at=:confirmed_at, confirmed_at_timestamp=:confirmed_at_timestamp where bitcoin_address=:bitcoin_address",
             named_params! {
              ":unconfirmed_sats": chain_info.unconfirmed_sats,
              ":unconfirmed_tx_ids": StringArray(chain_info.unconfirmed_tx_ids),
@@ -224,6 +226,7 @@ impl SqliteStorage {
              ":confirmed_tx_ids": StringArray(chain_info.confirmed_tx_ids),
              ":status": status as u32,
              ":confirmed_at": chain_info.confirmed_at,
+             ":confirmed_at_timestamp": chain_info.confirmed_at_timestamp,
              ":total_incoming_txs": chain_info.total_incoming_txs,
             },
         )?;
@@ -298,7 +301,8 @@ impl SqliteStorage {
           {prefix}confirmed_tx_ids,
           {prefix}last_redeem_error,
           {prefix}channel_opening_fees,
-          {prefix}confirmed_at          
+          {prefix}confirmed_at,
+          {prefix}confirmed_at_timestamp          
           "
         )
     }
@@ -466,7 +470,7 @@ mod tests {
             last_redeem_error: None,
             channel_opening_fees: Some(get_test_ofp_48h(1, 1).into()),
             confirmed_at: None,
-            confirmed_at_timestamp: None,
+            confirmed_at_timestamp: None
         };
         storage.insert_swap(tested_swap_info.clone())?;
         let item_value = storage.get_swap_info_by_address("1".to_string())?.unwrap();
