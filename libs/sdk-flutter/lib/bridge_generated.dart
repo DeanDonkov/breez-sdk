@@ -1887,6 +1887,7 @@ class SwapInfo {
 
   /// The block height when the swap was confirmed.
   final int? confirmedAt;
+  final int? confirmedAtTimestamp;
 
   const SwapInfo({
     required this.bitcoinAddress,
@@ -1913,6 +1914,7 @@ class SwapInfo {
     this.lastRedeemError,
     this.channelOpeningFees,
     this.confirmedAt,
+    this.confirmedAtTimestamp,
   });
 }
 
@@ -4118,7 +4120,7 @@ class BreezSdkCoreImpl implements BreezSdkCore {
 
   SwapInfo _wire2api_swap_info(dynamic raw) {
     final arr = raw as List<dynamic>;
-    if (arr.length != 24) throw Exception('unexpected arr length: expect 24 but see ${arr.length}');
+    if (arr.length != 25) throw Exception('unexpected arr length: expect 25 but see ${arr.length}');
     return SwapInfo(
       bitcoinAddress: _wire2api_String(arr[0]),
       createdAt: _wire2api_i64(arr[1]),
@@ -4144,6 +4146,7 @@ class BreezSdkCoreImpl implements BreezSdkCore {
       lastRedeemError: _wire2api_opt_String(arr[21]),
       channelOpeningFees: _wire2api_opt_box_autoadd_opening_fee_params(arr[22]),
       confirmedAt: _wire2api_opt_box_autoadd_u32(arr[23]),
+      confirmedAtTimestamp: _wire2api_opt_box_autoadd_u64(arr[24]),
     );
   }
 
