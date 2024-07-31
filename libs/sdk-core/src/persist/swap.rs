@@ -471,7 +471,7 @@ mod tests {
             last_redeem_error: None,
             channel_opening_fees: Some(get_test_ofp_48h(1, 1).into()),
             confirmed_at: None,
-            confirmed_at_timestamp: None
+            confirmed_at_timestamp: None,
         };
         storage.insert_swap(tested_swap_info.clone())?;
         let item_value = storage.get_swap_info_by_address("1".to_string())?.unwrap();
