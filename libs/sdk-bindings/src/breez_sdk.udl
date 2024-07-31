@@ -569,6 +569,7 @@ dictionary SwapInfo {
     string? last_redeem_error;
     OpeningFeeParams? channel_opening_fees;
     u32? confirmed_at;
+    u64? confirmed_at_timestamp;
 };
 
 dictionary ReverseSwapPairInfo {
