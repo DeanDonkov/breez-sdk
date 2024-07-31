@@ -2576,6 +2576,7 @@ impl support::IntoDart for SwapInfo {
             self.last_redeem_error.into_dart(),
             self.channel_opening_fees.into_dart(),
             self.confirmed_at.into_dart(),
+            self.confirmed_at_timestamp.into_dart(),
         ]
         .into_dart()
     }
