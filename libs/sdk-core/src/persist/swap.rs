@@ -413,6 +413,7 @@ impl SqliteStorage {
             last_redeem_error: row.get(format!("{prefix}last_redeem_error").as_str())?,
             channel_opening_fees: row.get(format!("{prefix}channel_opening_fees").as_str())?,
             confirmed_at: row.get(format!("{prefix}confirmed_at").as_str())?,
+            confirmed_at_timestamp: row.get(format!("{prefix}confirmed_at_timestamp").as_str())?,
         })
     }
 }

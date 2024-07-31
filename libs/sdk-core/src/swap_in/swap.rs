@@ -271,6 +271,7 @@ impl BTCReceiveSwap {
             last_redeem_error: None,
             channel_opening_fees: Some(channel_opening_fees),
             confirmed_at: None,
+            confirmed_at_timestamp: None,
         };
         swap_info.validate_swap_limits()?;
 
@@ -447,7 +448,7 @@ impl BTCReceiveSwap {
             unconfirmed_tx_ids: utxos.unconfirmed_tx_ids(),
             confirmed_sats: utxos.confirmed_sats(),
             confirmed_tx_ids: utxos.confirmed_tx_ids(),
-            confirmed_at: optional_confirmed_block_time,
+            confirmed_at: optional_confirmed_block,
             confirmed_at_timestamp: optional_confirmed_block_timestamp,
             total_incoming_txs,
         };
