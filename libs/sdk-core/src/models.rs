@@ -1366,6 +1366,8 @@ pub struct SwapInfo {
     pub channel_opening_fees: Option<OpeningFeeParams>,
     /// The block height when the swap was confirmed.
     pub confirmed_at: Option<u32>,
+
+    pub confirmed_at_timestamp: Option<u64>,
 }
 
 impl SwapInfo {
@@ -1376,6 +1378,7 @@ impl SwapInfo {
             confirmed_tx_ids: onchain_info.confirmed_tx_ids,
             unconfirmed_tx_ids: onchain_info.unconfirmed_tx_ids,
             confirmed_at: onchain_info.confirmed_at,
+            confirmed_at_timestamp: onchain_info.confirmed_at_timestamp,
             ..self.clone()
         };
 

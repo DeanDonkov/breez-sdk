@@ -402,21 +402,20 @@ impl BTCReceiveSwap {
             .chain_service
             .address_transactions(bitcoin_address.clone())
             .await?;
-        let optional_confirmed_block_time = txs
+        let optional_confirmed_block = txs
             .clone()
             .into_iter()
-            .filter_map(|t| t.status.block_time) // Extract Option<u64>
-            .filter_map(|block_time| {
-                // Assuming block_time is in milliseconds, divide by 1000 to convert to seconds
-                let block_time_in_seconds = block_time / 1000;
-                if block_time_in_seconds > 0 {
-                    // Attempt to convert u64 to u32, filter out any that can't be converted
-                    block_time_in_seconds.try_into().ok()
-                } else {
-                    None
-                }
-            })
+            .filter_map(|t| t.status.block_height)
+            .filter(|height| *height > 0)
             .min();
+
+        let optional_confirmed_block_timestamp = txs
+            .clone()
+            .into_iter()
+            .filter_map(|t| t.status.block_time)
+            .filter(|block_time| *block_time > 0)
+            .min();
+
         let utxos = get_utxos(bitcoin_address.clone(), txs.clone(), false)?;
         let total_incoming_txs = get_total_incoming_txs(bitcoin_address.clone(), txs);
 
@@ -449,6 +448,7 @@ impl BTCReceiveSwap {
             confirmed_sats: utxos.confirmed_sats(),
             confirmed_tx_ids: utxos.confirmed_tx_ids(),
             confirmed_at: optional_confirmed_block_time,
+            confirmed_at_timestamp: optional_confirmed_block_timestamp,
             total_incoming_txs,
         };
         let status = swap_info

@@ -15,6 +15,7 @@ pub(crate) struct SwapChainInfo {
     pub(crate) confirmed_sats: u64,
     pub(crate) confirmed_tx_ids: Vec<String>,
     pub(crate) confirmed_at: Option<u32>,
+    pub(crate) confirmed_at_timestamp: Option<u64>,
     pub(crate) total_incoming_txs: u64,
 }
 
